@@ -1,0 +1,157 @@
+@model Urun
+@{
+  ViewData["Title"] = "Index";
+}
+<script>$( function() {
+      $( "#datepicker" ).datepicker({ minDate: -100, maxDate: 0 });
+    } );</script>
+<!-- BAŞLANGIÇ-->
+<div class="row">
+  <div class="col-md-10">
+    <div class="card-body">
+      <h3>Var Olan Üründen Satın Al</h3>
+    </div>
+  </div>
+</div>
+<div class="row">
+
+ 
+
+    <div class="myvalidation" asp-validation-summary="All"></div>
+
+  
+</div>
+<!-- VAR OLAN ÜRÜN EKLEME BAŞLANGIÇ-->
+<form asp-controller="SatinAlma" asp-action="SatinAlVar">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-md-12">
+            <select name="UrunId" class="form-control" required id="combobox" asp-items="ViewBag.Urunler"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <input name="Adet" placeholder="Ürün Sayısı" pattern="[0-9]{0,10}" required class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card-body">
+        <div class="row">
+          <button type="submit" class="btn btn-primary">
+            <!-- ÜRÜN EKLE BUTONU-->
+            Ürün Ekle
+          </button>
+        </div>
+
+      </div>
+    </div>
+    <!-- VAR OLAN ÜRÜN EKLEME BİTİŞ-->
+  </div>
+</form>
+<!-- YENİ ÜRÜN EKLEME BAŞLANGIÇ-->
+<div class="row">
+  <div class="col-md-10">
+    <div class="card-body">
+      <h3>Yeni Ürün Satın Al</h3>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card-body">
+      <form asp-controller="SatinAlma" asp-action="SatinAlYok">
+        <div class="row">
+          <div class="pr-md-1 col-md-3">
+            <!-- ÜRÜN ADI -->
+            <div class="position-relative form-group">
+              <label asp-for="UrunAdi">Ürün Adı</label>
+              <input asp-for="UrunAdi" placeholder="Ürün Adı" pattern="[a-zA-Z0-9 ]+" required type="text" class="form-control">
+            </div>
+          </div>
+          <!-- TARİH -->
+          <div class="px-md-1 col-md-3">
+            <div class="position-relative form-group">
+              <label asp-for="SatinAlmaTarihi">Satın Alım Tarihi</label>
+              <input asp-for="SatinAlmaTarihi" type="text" placeholder="Satın Alım Tarihi" pattern="[0-9 ]+" class="form-control"
+                     required id="datepicker">
+            </div>
+            <script>
+              $("#datepicker").keyup(function () {
+
+                $(this).val("");
+
+              });
+            </script>
+          </div>
+          <!-- FİYAT -->
+          <div class="pl-md-1 col-md-4">
+            <div class="position-relative form-group">
+              <label asp-for="BirimFiyat" for="fiyat">Birim Fiyat</label>
+              <input asp-for="BirimFiyat" placeholder="Birim Fiyat" type="number" required pattern="[0-9 ]+" class="form-control">
+            </div>
+          </div>
+        </div>
+        <!-- PARÇA TİPİ COMBOBOX -->
+        <div class="row">
+          <div class="pr-md-1 col-md-4">
+            <div class="position-relative form-group">
+              <label asp-for="ParcaTipi">Parça Tipi</label>
+              <select asp-for="ParcaTipi" class="form-control" required id="combobox">
+                <option value="Toplama">Toplama</option>
+                <option value="Hazır PC">Hazır PC</option>
+              </select>
+            </div>
+          </div>
+          <!-- FİRMA ADI -->
+          <div class="pl-md-1 col-md-6">
+            <div class="position-relative form-group">
+              <label asp-for="Firma">Firma Adı</label>
+              <input asp-for="Firma" placeholder="Firma Adı" type="text" required pattern="[a-zA-Z0-9 ]+" class="form-control">
+            </div>
+          </div>
+        </div>
+        <!-- AÇIKLAMA -->
+        <div class="row">
+
+          <div class="col-md-10">
+            <div class="position-relative form-group">
+              <label asp-for="Aciklamasi">Ürün Açıklaması</label>
+              <textarea asp-for="Aciklamasi" cols="80" placeholder="Ürün Açıklaması" rows="4" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="position-relative form-group">
+              <label asp-for="UrunKategoriId">Ürünün Kategorisi</label>
+              <select asp-for="UrunKategoriId" class="form-control" required id="combobox" asp-items="ViewBag.Kategoriler">
+              </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="position-relative form-group">
+              <label>Ürün Adeti</label>
+              <input name="Adet" placeholder="Ürün Sayısı" pattern="[0-9]{0,10}" required class="form-control">
+            </div>
+          </div>
+        </div>
+          <!-- ÜRÜN EKLE BUTON -->
+          <div class="col-md-10">
+            <input type="submit" class="btn btn-primary" value="Ürün Ekle">
+          </div>
+</form>
+    </div>
+  </div>
+</div>
+<!-- BİTİŞ -->

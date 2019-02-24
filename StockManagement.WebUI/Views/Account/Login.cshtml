@@ -1,0 +1,37 @@
+@model LoginModel
+@{
+  Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+  <link rel="stylesheet" href="/vendor/static/css/login.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <title>Stok Takip</title>
+</head>
+<body>
+  <form asp-action="Login" method="post" class="form-signin">
+
+    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+
+    <img class="mb-4" src="/vendor/static/img/calisan.png" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Giriş Yapın</h1>
+    <label for="inputEmail" class="sr-only">UserName</label>
+    <input asp-for="UserName" class="form-control" placeholder="Username" required="" autofocus="">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input asp-for="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+  
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Giriş Yap</button>
+
+    <div asp-validation-summary="All"></div>
+  </form>
+</body>
+</html>

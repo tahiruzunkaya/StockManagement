@@ -1,0 +1,247 @@
+@model Calisan
+@{
+  ViewData["Title"] = "Calisan Yönet";
+}
+
+<div class="col-md-12">
+  <div class="card-body">
+
+    <div class="row">
+      <div class="position-relative form-check">
+        <label class="form-check-label">
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalKisiEkle">
+            Kişi Oluştur
+          </button>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="table-responsive">
+
+
+        <table class="tablesorter table">
+          <thead class="text-primary">
+            <tr>
+              <th>Adı</th>
+              <th>Soyadı</th>
+              <th>Bölümü</th>
+              <th>Yetki Durumu</th>
+              <th class="text-center">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var item in ViewBag.Calisanlar)
+            {
+
+              <tr>
+                <td>@item.CalisanAdi</td>
+                <td>@item.CalisanSoyadi</td>
+                <td>
+                  @item.Bolum.BolumAdi
+
+                </td>
+                <td class="text-center">
+
+                  @if (item.IsYetkili)
+                  {
+
+                    <b>Yetkili</b>
+
+                  }
+                  else
+                  {
+                    <b>Yetkili Değil</b>
+                  }
+
+                </td>
+
+                <!--Sabit-->
+                <td>
+                  <div class="position-relative form-check">
+                    <label class="form-check-label">
+                      @if (!item.IsYetkili)
+                      {
+                        <button id="@item.CalisanId" type="button" class="btn-table tikla" data-toggle="modal"
+                                data-target="#modalVer">
+                          Yetki Ver
+                        </button>
+                      }
+
+
+                      
+                  </div>
+                </td>
+              </tr>
+
+            }
+
+          </tbody>
+
+
+
+        </table>
+        <script>
+          $(".tikla").click(function () {
+
+            $("#CalisanId").val($(this).attr("id"));
+
+          });
+          $(".tikla1").click(function () {
+
+            $("#CalisanId1").val($(this).attr("id"));
+
+          });
+        </script>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>
+        
+<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVerTitle">Kişiye Yetki Ver</h5>
+        <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form asp-controller="CalisanYonet" asp-action="YetkiEkle">
+        <div class="modal-body">
+          <div class="row">
+
+            <div asp-validation-summary="All"></div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="pr-md-12 col-md-12">
+                    <div class="position-relative form-group">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="position-relative form-group">
+                            <label>Kullanıcı Adı</label>
+                            <input name="UserName" placeholder="Kullanıcı Adı" type="text" pattern="[a-zA-Z0-9 ]+" required class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="position-relative form-group">
+                            <label>Şifre</label>
+                            <input name="Password" placeholder="Şifre" type="password" required class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label>Yetki Seç</label>
+                          <select name="role" class="form-control" required id="combobox">
+
+                            <option value="bolumy">Bölüm Yetkilisi</option>
+                            <option value="satis">Satın Alma Yetkilisi</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="modal-footer">
+                          <input name="CalisanId" type="hidden" id="CalisanId"/>
+                          <button type="submit" class="btn btn-secondary"
+                                  data-dismiss="modal">
+                            Kapat
+                          </button>
+                          <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      </form>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade" id="modalKisiEkle" tabindex="-1" role="dialog" aria-labelledby="modalKisiEkleTitle"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalKisiEkleTitle">Kişi Oluştur</h5>
+        <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form asp-controller="CalisanYonet" asp-action="AddCalisan">
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="myvalidation" asp-validation-summary="All"></div>
+
+          </div>
+          <div class="row">
+            <div class="pr-md-12 col-md-12">
+              <div class="position-relative form-group">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="position-relative form-group">
+                      <label asp-for="CalisanAdi">Ad</label>
+                      <input id="CalisanAdi" asp-for="CalisanAdi" placeholder="Ad" pattern="[a-zA-Z ]+" required class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="position-relative form-group">
+                      <label asp-for="CalisanSoyadi">Soyad</label>
+                      <input id="CalisanSoyadi" asp-for="CalisanSoyadi" placeholder="Soyad" pattern="[a-zA-Z ]+" required class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <label asp-for="BolumId">Bölüm Seç</label>
+                    <select class="form-control" id="combobox" asp-for="BolumId" asp-items="ViewBag.Bolumler"></select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    <input type="submit" class="btn btn-primary" value="Kaydet" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

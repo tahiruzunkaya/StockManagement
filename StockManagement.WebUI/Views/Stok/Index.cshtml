@@ -1,0 +1,119 @@
+
+@{
+  ViewData["Title"] = "Index";
+}
+<!-- BAŞLANGIÇ -->
+<div class="col-md-12">
+  <div class="card-tasks card" style="height:auto !important">
+    <div class="card-header">
+      <h6 class="title d-inline">Stok</h6>
+      <p class="card-category d-inline"> Görüntüle</p>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="tablesorter table">
+          <thead class="text-primary">
+            <tr>
+              <th>Ürün Adı</th>
+              <th>Parça Tipi</th>
+              <th>Firma</th>
+              <th class="text-center">Birim Fiyatı</th>
+              <th class="text-center">Satın Alma Tarihi</th>
+              <th class="text-center">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            @foreach (var item in ViewBag.Stoklar)
+            {
+                <tr>
+                  <td>@item.Urun.UrunAdi</td>
+                  <td>@item.Urun.ParcaTipi</td>
+                  <td>@item.Urun.Firma</td>
+                  <td class="text-center">@item.Urun.BirimFiyat</td>
+                  <td class="text-center">@item.Urun.SatinAlmaTarihi</td>
+                  <td>
+                    <!-- ZİMMETLE BUTONU -->
+                    <div class="position-relative form-check">
+                      <label class="form-check-label">
+                        <button id="@item.StoklarId" type="button" class="btn-table stokZimmetBtnClick" data-toggle="modal" data-target="#modalKisiyeZimmetle">
+                          Zimmetle
+                        </button>
+
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+            }
+
+
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    $(".stokZimmetBtnClick").click(function () {
+
+      $("#StoklarId").val($(this).attr("id"));
+
+    });
+
+  </script>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalKisiyeZimmetle" tabindex="-1" role="dialog" aria-labelledby="modalKisiyeZimmetleTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <form asp-controller="Stok" asp-action="Zimmetle">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalKisiyeZimmetleTitle">Kişiye Ürün Zimmetle</h5>
+          <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card-body">
+                <form class="">
+                  <div class="row">
+                    <div class="pr-md-12 col-md-12">
+                      <div class="position-relative form-group">
+                        <label>Kişi Seç</label>
+                        <!-- ÜRÜNÜN ZİMMETLENECEĞİ KİŞİYİ SEÇ-->
+                        <select name="CalisanId" class="form-control" id="combobox">
+                          @foreach (var item in ViewBag.Calisanlar)
+                          {
+                            <option value="@item.CalisanId">@item.CalisanAdi @item.CalisanSoyadi</option>
+                          }
+                        </select>
+                        <input id="StoklarId" name="StoklarId" type="hidden" value="" />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- MODAL İÇİNDEKİ BUTONLAR -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

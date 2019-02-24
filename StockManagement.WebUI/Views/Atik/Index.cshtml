@@ -1,0 +1,94 @@
+
+@{
+  ViewData["Title"] = "Index";
+}
+
+  <div class="col-md-12">
+    <div class="card-tasks card">
+      <div class="card-header">
+        <h6 class="title d-inline">Atık</h6>
+        <p class="card-category d-inline"> Görüntüle</p>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="tablesorter table">
+            <thead class="text-primary">
+              <tr>
+                <th>Ürün Adı</th>
+                <th>Parça Tipi</th>
+                <th>Firma</th>
+                <th class="text-center">Atık Tarihi</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+              @foreach (var item in ViewBag.Atiklar)
+              {
+                <tr>
+                  <td>@item.Stoklar.Urun.UrunAdi</td>
+                  <td>@item.Stoklar.Urun.ParcaTipi</td>
+                  <td>@item.Stoklar.Urun.Firma</td>
+                  <td class="text-center">@item.AtikTarih</td>
+                </tr>
+              }
+
+
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalKisiyeZimmetle" tabindex="-1" role="dialog" aria-labelledby="modalKisiyeZimmetleTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalKisiyeZimmetleTitle">Kişiye Ürün Zimmetle</h5>
+          <button type="submit" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card-body">
+                <form class="">
+                  <div class="row">
+                    <div class="pr-md-12 col-md-12">
+                      <div class="position-relative form-group">
+                        <label>Kişi Seç</label>
+                        <!-- ÜRÜNÜN ZİMMETLENECEĞİ KİŞİYİ SEÇ-->
+                        <select class="form-control" id="combobox">
+
+                          <option value="0">Birkan Kader</option>
+                          <option value="1">Tahir Uzunkaya</option>
+                          <option value="2">İrem Ünver</option>
+                        </select>
+
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- MODAL İÇİNDEKİ BUTONLAR -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

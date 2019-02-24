@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="node_modules\static\css\404-not-found.css" />
+    <Content Include="node_modules\static\css\dino.css" />
+    <Content Include="node_modules\static\dino-assets\default_100_percent\100-disabled.png" />
+    <Content Include="node_modules\static\dino-assets\default_100_percent\100-error-offline.png" />
+    <Content Include="node_modules\static\dino-assets\default_100_percent\100-offline-sprite.png" />
+    <Content Include="node_modules\static\dino-assets\default_200_percent\200-disabled.png" />
+    <Content Include="node_modules\static\dino-assets\default_200_percent\200-error-offline.png" />
+    <Content Include="node_modules\static\dino-assets\default_200_percent\200-offline-sprite.png" />
+    <Content Include="node_modules\static\dino-assets\t-rex-runner-bot.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0"></DotNetCliToolReference>
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="node_modules\static\dino-assets\.DS_Store" />
+    <None Include="node_modules\static\js\dino.js" />
+  </ItemGroup>
+
+</Project>
